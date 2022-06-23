@@ -25,12 +25,29 @@ gallery.addEventListener('click', originalImage);
 
 function originalImage(event) {
 
-event.preventDefault();
-console.log(event.target.nodeName)
-if (event.target.nodeName !== `IMG`) {
-    return;
-}
-const modalWindow = basicLightbox.create(
-    `<img src="${event.target.dataset.source}" width="800" height="600">`);
-modalWindow.show();
+    event.preventDefault();
+    console.log(event.target.nodeName)
+    if (event.target.nodeName !== `IMG`) {
+        return;
+    }
+    const modalWindow = basicLightbox.create(
+        `<img src="${event.target.dataset.source}" width="800" height="600">`);
+    modalWindow.show();
+
+
+
+
+    if (modalWindow.show() === true) {
+        document.addEventListener('keydown', event => {
+            if (event.code === 'Escape') {
+                modalWindow.close();
+            }
+        });
+    } else {
+        document.removeEventListener('keydown', event => {
+            if (event.code === 'Escape') {
+                modalWindow.close();
+            }
+        });
+    }
 };
